@@ -3,9 +3,12 @@ import matplotlib.pyplot as plt
 import numpy as np
 from mnist import MNIST
 
-def load_mnist_df(filepath='data/'):
+def load_mnist_df(filepath='data/',test=False):
     mndata = MNIST(filepath)
-    images, labels = mndata.load_training()
+    if(test == False):
+        images, labels = mndata.load_training()
+    else:
+        images,labels = mndata.load_testing()
 
     df = pd.DataFrame(images,dtype='int8')
     df['label'] = labels
