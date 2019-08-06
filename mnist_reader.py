@@ -22,9 +22,15 @@ def show_mnist_image(df, index = None):
     if(index == None):
         index = np.random.randint(0,len(df))
     
-    image_df = df.drop("label",axis=1)
+    try:
+        image_df = df.drop("label",axis=1)
+        label_exists = True
+    except:
+        image_df = df
+        label_exists = False
+
     image_array = np.reshape(image_df.loc[index,:].values, (28,28))
     
     plt.imshow(image_array)
-    plt.title(str(df.label.loc[index]),)
-    plt.show()
+    if label_exists: plt.title(str(df.label.loc[index]),)
+    plt.show() 
